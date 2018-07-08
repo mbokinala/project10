@@ -21,19 +21,20 @@ class Level
 		end
 	end
 
-	def setup_level
-		@level_data.each_with_index do |row_data, row|
-			column = 0
-			row_data.each_char do |cell_type|
-			tile = Tile.new(@window, column, row, cell_type)
-			# Change behavior depending on cell_type
-			if tile.is_start?
-				@player.move_to(column, row)
-			end
-			@tiles.push(tile)
-			column += 1
-		end
-	end
+def setup_level
+  @level_data.each_with_index do |row_data, row|
+    column = 0
+    row_data.each_char do |cell_type|
+      tile = Tile.new(@window, column, row, cell_type)
+      # Change behavior depending on cell_type
+      if tile.is_start?
+        @player.move_to(column, row)
+      end
+      @tiles.push(tile)
+      column += 1
+    end
+  end
+end
 
 	def button_down(id)
 		if level_over?
@@ -95,6 +96,5 @@ class Level
 
 	def level_over?
 		@exit_reached
-	end
 	end
 end
