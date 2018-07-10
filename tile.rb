@@ -1,4 +1,4 @@
-require 'Gosu'
+require 'gosu'
 
 class Tile
 	PLAYER_TYPE   = 'P'
@@ -13,11 +13,11 @@ class Tile
 
 	def initialize(window, column, row, type)
 		@@colors ||= {red: Gosu::Color.argb(0xaaff0000),
-			green: Gosu::Color.argb(0xaaffff00),
-			gold: Gosu::Color.argb(0xaaff0000),
+			green: Gosu::Color.argb(0xaa00ff00),
+			gold: Gosu::Color.argb(0xaaffff00),
 			blue: Gosu::Color.argb(0xaa0000ff), }
 		@@font ||= Gosu::Font.new(24)
-		@@window = window
+		@@window ||= window
 		@row 	 = row
 		@column  = column
 		@type    = type
@@ -36,7 +36,7 @@ class Tile
 			y4 = y3
 
 			c = color
-			@window.draw_quad(x1, y1, c, x2, y2, c, x3, y3, c, x4, y4, c, 2)
+			@@window.draw_quad(x1, y1, c, x2, y2, c, x3, y3, c, x4, y4, c, 2)
 
 			x_center = x1 + (WIDTH / 2)
 			x_text = x_center - @@font.text_width("#{@type}") / 2
@@ -46,7 +46,7 @@ class Tile
 		end
 	end
 
-	def colors
+	def color
 		if is_player?
 			@@colors[:red]
 		elsif is_exit?
@@ -100,7 +100,7 @@ class Tile
 	end
 
 	def tile_is_drawn?
-		!is_empty? && is_start?
+		!is_empty? && !is_start?
 	end
 
 	def tile_can_be_entered?

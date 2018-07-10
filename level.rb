@@ -45,7 +45,7 @@ class Level
 
     if id == Gosu::KbUp
       row_delta = -1
-    elsif id == Godu::KbDown
+    elsif id == Gosu::KbDown
       row_delta = 1
     end
 
@@ -77,7 +77,7 @@ class Level
   end
 
   def move_valid?(player, column_delta, row_delta)
-    destination = getTile(player.column + column_delta, player_row + row_delta)
+    destination = get_tile(player.column + column_delta, player.row + row_delta)
     if destination && destination.tile_can_be_entered?
       true
     else
