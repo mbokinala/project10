@@ -1,4 +1,6 @@
 require 'gosu'
+require 'win32/sound'
+include Win32
 
 class Tile
 	PLAYER_TYPE   = 'P'
@@ -104,6 +106,14 @@ class Tile
 	end
 
 	def tile_can_be_entered?
-		is_empty? || is_start? || is_treasure? || is_exit?
+		#is_empty? || is_start? || is_treasure? || is_exit?
+    if is_empty? || is_start?
+      true
+    elsif is_treasure? || is_exit?
+      Sound.beep(1000, 100)
+      true
+    else
+      false
+    end
 	end
 end

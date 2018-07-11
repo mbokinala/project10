@@ -16,20 +16,19 @@ class Amazing < Gosu::Window
     self.caption = 'Amazing'
     @game = Game.new(self)
   end
-  # Even more code will go here
-end
 
-def update
-  @game.update
-end
+  def update
+    @game.update
+  end
 
-def draw
-  @game.draw
-end
+  def draw
+    @game.draw
+  end
 
-def button_down(id)
-  @game.button_down(id)
-end
+  def button_down(id)
+    @game.button_down(id)
+  end
 
-window = Amazing.new
-window.show
+  window = Amazing.new
+  window.show
+end
