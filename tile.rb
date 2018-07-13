@@ -8,16 +8,20 @@ class Tile
 	EXIT_TYPE     = 'E'
 	TREASURE_TYPE = 'T'
 	EMPTY_TYPE    = '.'
+  PORTAL_TYPE   = 'Z'
 	WIDTH = 32
 	HEIGHT = 32
 
 	attr_reader :row, :column, :type
 
 	def initialize(window, column, row, type)
-		@@colors ||= {red: Gosu::Color.argb(0xaaff0000),
+		@@colors ||= {
+      red: Gosu::Color.argb(0xaaff0000),
 			green: Gosu::Color.argb(0xaa00ff00),
 			gold: Gosu::Color.argb(0xaaffff00),
-			blue: Gosu::Color.argb(0xaa0000ff), }
+			blue: Gosu::Color.argb(0xaa0000ff),
+      purple: Gosu::Color.argb(0xaaa020f0)
+    }
 		@@font ||= Gosu::Font.new(24)
 		@@window ||= window
 		@row 	 = row
@@ -55,6 +59,8 @@ class Tile
 			@@colors[:green]
 		elsif is_treasure?
 			@@colors[:gold]
+    elsif is_portal?
+      @@colors[:purple]
 		else
 			@@colors[:blue]
 		end
@@ -89,6 +95,10 @@ class Tile
 		@type == EMPTY_TYPE || @type == ' '
 	end
 
+  def is_portal?
+    @type == PORTAL_TYPE
+  end
+
 	def hidden?
 		@hidden
 	end
@@ -107,7 +117,7 @@ class Tile
 
 	def tile_can_be_entered?
 		#is_empty? || is_start? || is_treasure? || is_exit?
-    if is_empty? || is_start?
+    if is_empty? || is_start? || is_portal?
       true
     elsif is_treasure? || is_exit?
       Sound.beep(1000, 100)

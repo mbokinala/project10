@@ -13,6 +13,8 @@ class Player < Tile
 		if tile.is_treasure?
 			@score += 1
 			tile.make_empty
+    elsif tile.is_portal?
+      tile.make_empty
 		end
 	end
 end
